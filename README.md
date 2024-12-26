@@ -9,11 +9,12 @@ __Библиотека похожа на telebot, но она более про�
 pip install ekogram
 ```
 
-## Общий пример использования:
+## Пример использования:
 ```python
-from ekogram import Bot, Markup
+from ekogram import Bot, Markup, GPT
 import time
 
+gpt = GPT()
 bot = Bot('You_Bot_Token')
 
 @bot.message_handler(content_types=['new_chat_member'])
@@ -21,9 +22,9 @@ def hello_mention(message):
     new_member = message.new_chat_member.first_name
     new_id = message.new_chat_member.id
     chat_id = message.chat.id
-    print(new_member)
+    privet = gpt.gpt4o("Привет")
     if new_id == bot.get_me().id:
-        bot.reply_message(text=f"Привет, меня зовут бот", mode="Markdown")
+        bot.reply_message(text=f"{privet}", mode="Markdown")
     else:
         bot.reply_message(chat_id, text=f"Привет [{str(new_member).replace('[', '').replace(']', '')}](tg://user?id={new_id})!", mode="Markdown")
 
@@ -146,6 +147,23 @@ def handle_animation_message(message):
 
 
 bot.polling()
+```
+
+Использование ChatGPT
+```python
+from ekogram import GPT
+
+#модель gpt-3.5
+while True:
+    p = input("Введите текст: ")
+    otvet = GPT().gpt3(p)
+    print(otvet)
+
+#модель gpt-4o
+while True
+    p = input("Введите текст: ")
+    otvet = GPT().gpt4o(p)
+    print(otvet)
 ```
 
 ## Лицензия
