@@ -1,20 +1,25 @@
 # Ekogram
 
-**Ekogram** - это легкая библиотека для работы с Telegram Bot API версии 7.10. Она предоставляет простой и понятный интерфейс для отправки различных типов сообщений и обработки обновлений.
+**Ekogram** - это легкая библиотека для работы с Telegram Bot API версии 8.1
+Она предоставляет простой и понятный интерфейс для отправки различных типов сообщений и обработки обновлений.
 
 __Библиотека похожа на telebot, но она более простая и подходит для разработки достаточно сложных проектов__
 
 ## Установка
+Для Windows OS, Linux OS
 ```bash
 pip install ekogram
+```
+Для Mac OS
+```bash
+pip3 install ekogram
 ```
 
 ## Пример использования:
 ```python
-from ekogram import Bot, Markup, GPT
+from ekogram import Bot, Markup, gpt3
 import time
 
-gpt = GPT()
 bot = Bot('You_Bot_Token')
 
 @bot.message_handler(content_types=['new_chat_member'])
@@ -22,7 +27,7 @@ def hello_mention(message):
     new_member = message.new_chat_member.first_name
     new_id = message.new_chat_member.id
     chat_id = message.chat.id
-    privet = gpt.gpt4o("Привет")
+    privet = gpt3("Привет")
     if new_id == bot.get_me().id:
         bot.reply_message(text=f"{privet}", mode="Markdown")
     else:
@@ -50,7 +55,9 @@ def start(message):
 def help(message):
     buttonss = [{'text': 'Кнопка 1'}, {'text': 'Кнопка 2'}, {'text': 'Кнопка 3'}]
     reply_markup = Markup.create_reply_keyboard(buttonss, row_width=1)
-    bot.reply_message(message.chat.id, "Кнопки:", reply_markup=reply_markup)
+    p = bot.reply_message(message.chat.id, "Кнопки:", reply_markup=reply_markup)
+    time.sleep(3)
+    bot.edit_message_text(message.chat.id, message_id=p.message_id, text="Удаляю кнопки", reply_markup=Markup.remove_reply_keyboard(True))
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -147,23 +154,6 @@ def handle_animation_message(message):
 
 
 bot.polling()
-```
-
-Использование ChatGPT
-```python
-from ekogram import GPT
-
-#модель gpt-3.5
-while True:
-    p = input("Введите текст: ")
-    otvet = GPT().gpt3(p)
-    print(otvet)
-
-#модель gpt-4o
-while True
-    p = input("Введите текст: ")
-    otvet = GPT().gpt4o(p)
-    print(otvet)
 ```
 
 ## Лицензия
