@@ -2,7 +2,7 @@ from ekogram import Bot, Markup, FreeGpt, FreeImg
 import random, os
 
 # Инициализация бота с токеном
-bot = Bot("7642394151:AAEW0hIX1jMeWWD9MR7v1fgcRBhtsdGgnWY")
+bot = Bot("Bot-Token")
 
 # Обработчик команды /start
 @bot.message_handler(commands=['start'])
